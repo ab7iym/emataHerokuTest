@@ -1,0 +1,48 @@
+{
+  "name": "test-react",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^3.9.2",
+    "@progress/kendo-data-query": "^1.5.0",
+    "@progress/kendo-react-dateinputs": "^2.6.1",
+    "@progress/kendo-react-intl": "^2.6.1",
+    "babel-loader": "^8.0.4",
+    "bootstrap": "^4.3.1",
+    "chart.js": "^2.7.3",
+    "highcharts-drilldown": "^0.1.7",
+    "highcharts-react-official": "^2.0.0",
+    "material-ui": "^0.20.2",
+    "rc-datepicker": "^5.0.13",
+    "react": "^16.8.2",
+    "react-autocomplete": "^1.8.1",
+    "react-bootstrap": "^1.0.0-beta.5",
+    "react-bootstrap-date-picker": "^5.1.0",
+    "react-bootstrap-typeahead": "^3.3.4",
+    "react-dates": "^19.0.3",
+    "react-datetime": "^2.16.3",
+    "react-dom": "^16.8.2",
+    "react-highcharts": "^16.0.2",
+    "react-jsx-highcharts": "^3.4.0",
+    "react-redux": "^6.0.1",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.1.1",
+    "reactstrap": "^7.1.0",
+    "redux": "^4.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

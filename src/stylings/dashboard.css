@@ -1,0 +1,108 @@
+.placeholder{
+  color: #6c757d;
+  opacity: 1;
+  font-weight: bold;
+}
+.dashboardGraphContainer {
+  width: 90%;
+  margin: auto;
+}
+.dashboardNavDiv {
+  width: 100%;
+  margin: auto;
+  z-index: 100;
+}
+p.cardNames {
+  display: block;
+  background-color: rgba(255,255,255,0.0);
+  width: 100%;
+  height: calc(1rem + 2px);
+  margin-left: 38px;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  font-family: Arial;
+  font-weight: bold;
+  color: rgba(0,0,0,0.65);
+  border: 0px solid #ced4da;
+  border-radius: 0.9rem;
+}
+div.titleCard {
+  background-color: rgba(255,255,255,0);
+  border-radius: 80px;
+  width: 30%;
+  height: 30px;
+  display: block;
+  margin-top: 20px;
+}
+p.title {
+  display: block;
+  background-color: rgba(255,255,255,0);
+  width: 100%;
+  height: calc(1rem + 2px);
+  margin-top: 10px;
+  font-size: 1.2rem;
+  text-indent: 7%;
+  font-family: AvantGardeMdITCTT;
+  color: rgba(255,255,255,0.9);
+  border: 0px solid #ced4da;
+  border-radius: 0.9rem;
+}
+p.utilizationcardName {/*this is a specific class to align the name font to left*/
+  display: block;
+  background-color: rgba(255,255,255,0.0);
+  width: 100%;
+  height: calc(1rem + 2px);
+  margin-left: 20px;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  font-family: Arial;
+  font-weight: bold;
+  color: rgba(0,0,0,0.65);
+  border: 0px solid #ced4da;
+  border-radius: 0.9rem;
+}
+.navBarStyleMain {
+  height: 10%;
+  width: 100%;
+}
+div.deliveryDetailsCard {
+  background-color: rgba(255,255,255,0.9);
+  border-radius: 8px;
+  width: 100%;
+  height: 400px;
+  display: block;
+  padding-top: 1%;
+}
+div.monthlyOVCard {
+  background-color: rgba(255,255,255,0.9);
+  border-radius: 8px;
+  width: 100%;
+  height: 400px;
+  display: block;
+  padding-top: 1%;
+}
+div.paymentCard {
+  background-color: rgba(255,255,255,0.9);
+  border-radius: 8px;
+  width: 100%;
+  height: 300px;
+  display: block;
+  padding-top: 1%;
+}
+div.farmersCard {
+  background-color: rgba(255,255,255,0.9);
+  border-radius: 8px;
+  width: 100%;
+  height: 300px;
+  display: block;
+  padding-top: 1%;
+}
+
+div.utilizationCard {
+  background-color: rgba(255,255,255,0.9);
+  border-radius: 8px;
+  width: 100%;
+  height: 300px;
+  display: block;
+  padding-top: 1%;
+}

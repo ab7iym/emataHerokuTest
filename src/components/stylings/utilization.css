@@ -1,0 +1,42 @@
+.utilizationGraph {
+  background-color: rgba(255,255,255,1.20);
+  border-radius: 6px;
+  height: 130px;
+  width: 90%;  
+  margin: auto;
+}
+.textUtilizationCards{
+  display: block;
+  background: rgba(255,255,255,0.7);
+  border-color: rgba(0,0,0,0.0);
+  border-radius: 3px;
+  border-width: 0.1px;
+  width: 90%;
+  height: calc(2.95rem + 2px);
+  line-height: 0px;
+  padding: 0px;
+  margin: auto;
+  margin-top: 5px;
+  margin-bottom: 5px
+}
+.contentUtilizationNumber1{
+  margin-top: 23px;
+  margin-left: 32px;
+  color: rgba(0,0,0,0.75);
+  font-size: 1.7rem;
+  font-weight: bold;
+}
+.contentUtilizationNumber2{
+  margin-top: 23px;
+  margin-left: 30px;
+  color: #1AB394;/*rgba(116,191,252,1.0);*/
+  text-anchor: center;
+  font-size: 1.7rem;
+  font-weight: bold;
+}
+.contentUtilization{
+  color: rgba(0,0,0,0.75);
+  text-anchor: center;
+  font-size: 0.7rem;
+  font-weight: bold;
+}

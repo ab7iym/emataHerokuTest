@@ -1,0 +1,152 @@
+body{
+background-image: url(background2.jpg);
+background-color: gray;
+background-repeat: no-repeat;
+background-position: center;
+background-size:cover;
+background-attachment: fixed;
+}
+.placeholder{
+  color: #6c757d;
+  opacity: 1;
+  font-weight: bold;
+}
+div.mainDiv {
+  background-color: rgba(255,255,255,0.0);
+  border-radius: 8px;
+  width: 50%;
+  height: 300px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top:12%;
+}
+div.parentDiv {
+	min-width: 960px; 
+	margin: 0 auto;
+}
+.inputBackground{
+  width: 47%;
+  height: calc(2.45rem + 2px);
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0.375rem 0.95rem;
+  font-size: 0.8rem;
+  color: white;
+  background-color: rgba(255,255,255,0.25);
+  background-clip: padding-box;
+  border: 0px solid #ced4da;
+  border-radius: 1rem;
+}
+.inputBoxUsername {
+  display: block;
+  width: 86%;
+  height: calc(2.28rem + 2px);
+  margin-left: 38px;
+  margin-top: -33px;
+  font-size: 0.71rem;
+  font-family: Arial;
+  font-weight: bold;
+  color: white;
+  background-color: rgba(255,255,255,0.0);
+  border: 0px solid #ced4da;
+  border-radius: 0.9rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.inputBoxPassword {
+  display: block;
+  width: 86%;
+  height: calc(2.28rem + 2px);
+  margin-left: 37px;
+  margin-top: -35px;
+  font-size: 0.71rem;
+  font-family: Arial;
+  font-weight: bold;
+  color: white;
+  background-color: rgba(255,255,255,0.0);
+  border: 0px solid #ced4da;
+  border-radius: 0.9rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.loginButton {
+  background: rgba(255,0,0,0.8);
+  border-color: rgba(255,255,255,0.0);
+  border-radius: 1rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  color: rgba(255,255,255,0.75);
+  text-align: middle;
+  font-size: 0.8rem;
+  font-weight: bold;
+  width: 47%;
+  height: calc(2.3rem + 2px);
+  line-height: 0px;
+  padding: 0px;
+}
+img.loginIconUsername {
+  width: 22px;
+  height: 22px;
+  opacity: 0.7;
+  margin: 3px;
+}
+img.loginIconPassword {
+  width: 17px;
+  height: 17px;
+  opacity: 0.7;
+  margin: 6px;
+}
+img.loginLogo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90px;
+  height: 90px;
+  padding: 0px;
+}
+.form-group-ab7 {
+  padding: 0px;
+  margin: 35px;
+}
+.loading {
+  background: rgba(0,0,0,0);
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 7%;
+  height: calc(1.3rem + 2px);
+  line-height: 0px;
+  padding: 0px;
+  margin-top: 1rem;
+}
+.errorMessageDiv {
+  background: rgba(255,0,0,0.2);
+  border-color: rgba(255,0,0,0.8);
+  border-radius: 0.5rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  height: calc(1.3rem + 2px);
+  line-height: 0px;
+  padding: 0px;
+  margin-top: 1rem;
+}
+.errorMessage {
+  background: rgba(255,0,0,0.4);
+  border-color: rgba(255,0,0,0);
+  border-radius: 0.5rem;
+  border-width: medium;
+  margin-left: auto;
+  margin-right: auto;
+  color: rgba(255,255,255,0.75);
+  text-align: middle;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+  height: calc(1.3rem + 2px);
+  line-height: 0px;
+  padding-top: 9.5px;
+}
