@@ -12,7 +12,6 @@ class Login extends Component {
 
     constructor(props){
         super(props);
-
         this.state = {
             loginDetails:{
                 username: '',
@@ -76,7 +75,12 @@ class Login extends Component {
         console.log("---------------------------------------");
         console.log("Status: "+serverResponse.code);
         if(serverResponse.code===400){//please try again later alert needed
-
+            console.log("---------------------------------------");
+            console.log("StatusMessage: "+serverResponse.message);
+            this.onShowAlert("Server Error. Please try again later");
+            let newState = this.state;
+            newState.showLoader=false
+            this.setState(newState);
         }
         else if(serverResponse.code===500){
             console.log("---------------------------------------");
@@ -128,13 +132,13 @@ class Login extends Component {
     }
     setTokenCookie(value){
         let tokenExpDate=new Date();
-        tokenExpDate.setDate(tokenExpDate.getDate()+1);
+        tokenExpDate.setDate(tokenExpDate.getDate()+1);//add 1 because the token expires after one day
         document.cookie = "ac-tn="+value+"; expires="+tokenExpDate+";"
     }
     updateInputUser(event){//this function is called to update the state name of loginDetails object
-        var abc = this.state.loginDetails;
-        abc.username = event.target.value;
-        this.setState({loginDetails: abc});
+        var loginDetails = this.state.loginDetails;
+        loginDetails.username = event.target.value;
+        this.setState({loginDetails: loginDetails});
         console.log(this.state.loginDetails);
         if((!this.state.loginDetails.username || this.state.loginDetails.username === "" || this.state.loginDetails.username ===" ")&(this.state.errorMessageState.errorMsg==="Your password is required" || this.state.errorMessageState.errorMsg==="username or password is INCORRECT")){
             this.onDismissAlert();//this dismisses the alert message if the username input is editted to nothing or empty "".
@@ -142,9 +146,9 @@ class Login extends Component {
         }
     }
     updateInputPass(event){//this function is called to update the state password of loginDetails object
-        var abc = this.state.loginDetails;//saves the whole object in var abc
-        abc.password = event.target.value;//change the value of username in the object var abc
-        this.setState({loginDetails: abc});//assigns the whole object loginDetails to abc
+        var loginDetails = this.state.loginDetails;//saves the whole object in var loginDetails
+        loginDetails.password = event.target.value;//change the value of username in the object var loginDetails
+        this.setState({loginDetails: loginDetails});//assigns the whole object loginDetails to loginDetails
         console.log(this.state.loginDetails);
         if((!this.state.loginDetails.password || this.state.loginDetails.password === "" || this.state.loginDetails.password ===" ")&(this.state.errorMessageState.errorMsg==="Your password is required" || this.state.errorMessageState.errorMsg==="username or password is INCORRECT")){
             this.onDismissAlert();//this dismisses the alert message if the username input is editted to nothing or empty "".
@@ -152,16 +156,17 @@ class Login extends Component {
         }
     }
     onShowAlert(statement) {
-        var abc = this.state.errorMessageState;
-        abc.errorMsg = statement;
-        abc.visible = true;
-        this.setState({errorMessageState: abc});
+        var errorMessageState = this.state.errorMessageState;
+        errorMessageState.errorMsg = statement;
+        errorMessageState.visible = true;
+        this.setState({errorMessageState: errorMessageState});
         console.log("errorMessageState: "+this.state.errorMessageState);
     }
     onDismissAlert() {
-        var abc = this.state.errorMessageState;
-        abc.visible = false;
-        this.setState({errorMessageState: abc});
+        var errorMessageState = this.state.errorMessageState;
+        errorMessageState.errorMsg = '';
+        errorMessageState.visible = false;
+        this.setState({errorMessageState: errorMessageState});
         console.log("errorMessageState: "+this.state.errorMessageState);
     }
     showLoader(){
@@ -202,5 +207,3 @@ class Login extends Component {
     } 
 }
 export default Login;
-//ReactDOM.render(<Login />, document.getElementById('just'));
-//serviceWorker.unregister();

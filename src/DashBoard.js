@@ -3,6 +3,13 @@ import {Redirect} from 'react-router-dom';
 import PropTypes from "prop-types";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Loader from './components/loadingDashBoard';
 import NavbarV2 from "./components/NavbarV2";
 import MonthlyOverview from './components/monthlyOverview';
@@ -25,7 +32,8 @@ class FullWidthGrid extends React.Component{
       renewTokenDetails: {username: '', password: '', clientId:'backoffice', clientSecret:'backoffice@lug'},
       paymentMethodData: [],
       farmerGraphData: {entries: '', startDate: '', endDate: '', contacts: ''},
-      showLoader: false
+      showLoader: false,
+      open: false //this holds the state to either show or hide the Error dialog box 
     }
     this.renewToken= this.renewToken.bind(this);
     this.verification=this.verification.bind(this);
@@ -36,7 +44,12 @@ class FullWidthGrid extends React.Component{
     this.setTokenCookie = this.setTokenCookie.bind(this);
     this.getContactsData = this.getContactsData.bind(this);
   }
-
+  handleClickOpen = () => {//this handles the show error dialog box event
+    if(this.state.open===false){this.setState({ open: true });}
+  };
+  handleClose = () => {//this handles the close error dialog box event
+    if(this.state.open===true){this.setState({ open: false });}
+  };
   handleCoopSignal=(id,name)=>{
     let newState=this.state;
     newState.coopId=id;
@@ -100,7 +113,7 @@ class FullWidthGrid extends React.Component{
   }
   //*
   componentDidMount(){
-    this.timer = setInterval(this.renewToken, 85000000);
+    this.timer = setInterval(this.renewToken, 85000000);//this timer is set to run the renewToken function to get a new token when time expires
     console.log("---------------------renewTokenDetails-----------------------");
     let newState=this.state;
     newState.renewTokenDetails.password=localStorage.getItem('ps');
@@ -111,7 +124,6 @@ class FullWidthGrid extends React.Component{
     localStorage.removeItem('us');
     console.log("---------------------State-TokenDetails: ", this.state.renewTokenDetails);
   }//*/
-
   componentWillUnmount(){clearInterval(this.timer);}
 
   renewToken(){
@@ -143,13 +155,12 @@ class FullWidthGrid extends React.Component{
       else {this.verification(res);}
     })
   }
-
   verification(serverResponse){
     if(!serverResponse){
       console.log("--------No response yet--------");
     }
     else{
-      console.log("This is the feedback: "+serverResponse);
+      console.log("This is the feedback: ",serverResponse);
       console.log("---------------------------------------");
       console.log("Status: "+serverResponse.code);
       if(serverResponse.code===400){//please try again later alert needed
@@ -168,42 +179,59 @@ class FullWidthGrid extends React.Component{
       }
     }
   }
-
   getCoopsData(id,startDate,endDate,startDateRange,endDateRange){//this function populates the coops list in the search bar
     console.log("getCoopsData function has been called");
     fetch('https://emata-ledgerservice-test.laboremus.no/api/ledger/ledger-entries-in-period?organisationId='+id+'&entryType=1'+'&startDate='+startDate+'&endDate='+endDate,{
-        headers: {
-          'Authorization':'Bearer '+this.getCookie("ac-tn"),
-          'Transfer-Encoding': 'chunked',
-          'Content-Type': 'application/json;charset=UTF-8',
-          'Content-Encoding': 'gzip',
-          'Vary':'Accept-Encoding',
-          'X-Content-Type-Options':'nosniff',
-        },
-        method: 'GET'
+      headers: {
+        'Authorization':'Bearer '+this.getCookie("ac-tn"),
+        'Transfer-Encoding': 'chunked',
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Content-Encoding': 'gzip',
+        'Vary':'Accept-Encoding',
+        'X-Content-Type-Options':'nosniff',
+      },
+      method: 'GET'
     })
     .then(response=>response.json())
     .then(res=>{
-      console.log("--------------------------------------------------------------------------------------------------------------------------------");
-      console.log(res);
-      
-      let newState= this.state;
-      let sortedDateArray=[];
-      let dataRange='';
-      sortedDateArray = res.farmerLedgerEntries;//this stores the data of only the farmers' entries
-      sortedDateArray.sort(function(a,b){return new Date(a.entryDateTime) - new Date(b.entryDateTime)});
-      console.log("sorted-Object-Array: ",sortedDateArray);
-      dataRange=this.getDataByDateRange(sortedDateArray,startDateRange,endDateRange);//sorting by the date range and assigning it to dateRange
-      newState.Gduration = newState.Gduration+0.0001;
-      newState.showLoader = false;//turning off the loader component
-      newState.entries = sortedDateArray;
-      newState.dateRangeEntries = dataRange;
-      newState.farmerGraphData.entries = dataRange;
-      localStorage.setItem('dateRangeEntries', newState.dateRangeEntries);
-      this.setState(newState);
-      console.log("state: ", this.state);//*/
+      if(!res){
+        console.log("--------------No response yet--------------");
+      }
+      else{
+        console.log("This is the feedback: ",res);
+        console.log("---------------------------------------");
+        console.log("Status: "+res.code);
+        if(res.code===400){//please try again later alert needed
+          this.handleClickOpen();
+        }
+        else if(res.code===500){
+          console.log("------------------ERROR-CODE 500---------------------");
+          console.log("StatusMessage: "+res.message);
+          this.getCoopsData(id,startDate,endDate,startDateRange,endDateRange);
+        }
+        else{
+          console.log("--------------------------------------------------------------------------------------------------------------------------------");
+          console.log(res);
+          let newState= this.state;
+          let sortedDateArray=[];
+          let dataRange='';
+          sortedDateArray = res.farmerLedgerEntries;//this stores the data of only the farmers' entries
+          sortedDateArray.sort(function(a,b){return new Date(a.entryDateTime) - new Date(b.entryDateTime)});
+          console.log("sorted-Object-Array: ",sortedDateArray);
+          dataRange=this.getDataByDateRange(sortedDateArray,startDateRange,endDateRange);//sorting by the date range and assigning it to dateRange
+          newState.Gduration = newState.Gduration+0.0001;
+          newState.showLoader = false;//turning off the loader component
+          newState.entries = sortedDateArray;
+          newState.dateRangeEntries = dataRange;
+          newState.farmerGraphData.entries = dataRange;
+          localStorage.setItem('dateRangeEntries', newState.dateRangeEntries);
+          this.setState(newState);
+          console.log("state: ", this.state);//*/
+        }
+      }
     })
     .catch((error)=>{
+        alert('UNKOWN ERROR - Please refresh this page');
         return(error);//reject(error);
     });
   }
@@ -218,7 +246,6 @@ class FullWidthGrid extends React.Component{
     }
     return dataRange;
   }
-
   getContactsData(id){
     console.log("famers function has been called");
     try{
@@ -238,15 +265,32 @@ class FullWidthGrid extends React.Component{
         })
       .then(response=>response.json())
       .then(res=>{
-        let newState = this.state;
-        newState.farmerGraphData.contacts = res;
-        this.setState(newState);
-        console.log(this.state.coopContactList);
-      })
+        if(!res){
+          console.log("--------------No response yet--------------");
+        }
+        else{
+          console.log("This is the feedback: ",res);
+          console.log("---------------------------------------");
+          console.log("Status: "+res.code);
+          if(res.code===400){//please try again later alert needed
+            this.handleClickOpen();
+          }
+          else if(res.code===500){
+            console.log("------------------ERROR-CODE 500---------------------");
+            console.log("StatusMessage: "+res.message);
+            this.getContactsData(id);
+          }
+          else{
+            let newState = this.state;
+            newState.farmerGraphData.contacts = res;
+            this.setState(newState);
+            console.log(this.state.coopContactList);
+          }
+        }
+      });
     }
     catch(e){console.log(e);}
   }
-
   paymentMethod(id){//this function populates the payment method list in the payment graph
     console.log("---------------------paymentMethod function has been called------------------------");
     fetch(" https://emata-crmservice-test.laboremus.no/api/payment/method?organisationId="+id,
@@ -263,22 +307,41 @@ class FullWidthGrid extends React.Component{
     })
     .then(response => response.json())
     .then(res=>{
-      console.log("paymentMethod Res dashboard",res);
-      let newState= this.state;
-      newState.paymentMethodData = res;
-      this.setState(newState);
+      if(!res){
+        console.log("--------------No response yet--------------");
+      }
+      else{
+        console.log("This is the feedback: ",res);
+        console.log("---------------------------------------");
+        console.log("Status: "+res.code);
+        if(res.code===400){//please try again later alert needed
+          this.handleClickOpen();
+        }
+        else if(res.code===500){
+          console.log("------------------ERROR-CODE 500---------------------");
+          console.log("StatusMessage: "+res.message);
+          this.paymentMethod(id);
+        }
+        else{
+          console.log("paymentMethod Res dashboard",res);
+          let newState= this.state;
+          newState.paymentMethodData = res;
+          this.setState(newState);
+        }
+      }
     })
     .catch(error => {return error;}); //reject(error);
   }
 
   render(){
     let classes = this.props;
+    const { fullScreen } = this.props;
     console.log("Current ");
     if(!this.getCookie("ac-tn") || !localStorage.getItem("UserId")){
       return (<Redirect exact to={'/'}/>)
     }
     else{
-      return <div>
+      return <div className='parentDiv'>
         <div className="dashboardNavDiv">
           <NavbarV2 
             passCoopSignal={(id,name)=>this.handleCoopSignal(id,name)} 
@@ -286,10 +349,14 @@ class FullWidthGrid extends React.Component{
           />
           {this.showLoader()}
         </div>
+        {/*
+        <div className="titleCard">
+          <p className="title">{this.state.coopName}</p>
+        </div>*/}
         <div className="dashboardGraphContainer">
           <div className={classes.root}>
-            <Grid container spacing={24}>
-              <Grid item xs={1} sm={12}>
+            <Grid container spacing={8}>
+              <Grid item  sm={12}>
                 <Paper className="titleCard">
                   <p className="title">{this.state.coopName}</p>
                 </Paper>
@@ -327,6 +394,20 @@ class FullWidthGrid extends React.Component{
             </Grid>
           </div>
         </div>
+        <Dialog
+          fullScreen={fullScreen}
+          open={this.state.open}
+          onClose={this.handleClose}
+          style={{backgroundColor: 'transparent', color:'red'}}
+          overlayStyle={{backgroundColor: 'red', color:'red'}}
+          aria-labelledby="responsive-dialog-title"
+        >
+          <DialogContent>
+            <DialogContentText>
+              ERROR: Please try again later.
+            </DialogContentText>
+          </DialogContent>
+        </Dialog>
       </div>
     }
   }

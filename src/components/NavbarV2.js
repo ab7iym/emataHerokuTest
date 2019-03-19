@@ -71,25 +71,43 @@ class NavBar extends Component {
     })
     .then(response=>response.json())
     .then(res=>{
-      console.log(res);
-      let newState = this.state;
-      newState.coops = [];
-      for (let i=0; i<res.length; i++) {
-        if(res[i].isMainBranch){//checking if the coop is the main branch
-          newState.coops[i] = {'name':res[i].name,'id':res[i].id};
-        }
+       if(!res){
+        console.log("--------------No response yet--------------");
       }
-      if(newState.coops.length>0){//setting the default value of the search input
-        console.log("---------------setting the defaultValue for search box-------------------");
-        if(sessionStorage.getItem('cp-sl-id')){//check if there was a particular coop selected(this helps retain the same coop when the page is refreshed)
-          this.props.passCoopSignal(sessionStorage.getItem('cp-sl-id'),sessionStorage.getItem('cp-sl-nm'));
+      else{
+        console.log("This is the feedback: ",res);
+        console.log("---------------------------------------");
+        console.log("Status: "+res.code);
+        if(res.code===400){//please try again later alert needed
+          alert('ERROR-CODE 400');
+        }
+        else if(res.code===500){
+          console.log("------------------ERROR-CODE 500---------------------");
+          console.log("StatusMessage: "+res.message);
+          this.getCoopsList();
         }
         else{
-          this.props.passCoopSignal(newState.coops[0].id,newState.coops[0].name);
+          console.log(res);
+          let newState = this.state;
+          newState.coops = [];
+          for (let i=0; i<res.length; i++) {
+            if(res[i].isMainBranch){//checking if the coop is the main branch
+              newState.coops[i] = {'name':res[i].name,'id':res[i].id};
+            }
+          }
+          if(newState.coops.length>0){//this condition set the default value of the search input
+            console.log("---------------setting the defaultValue for search box-------------------");
+            if(sessionStorage.getItem('cp-sl-id')){//check if there was a particular coop selected(this helps retain the same coop when the page is refreshed)
+              this.props.passCoopSignal(sessionStorage.getItem('cp-sl-id'),sessionStorage.getItem('cp-sl-nm'));
+            }
+            else{
+              this.props.passCoopSignal(newState.coops[0].id,newState.coops[0].name);
+            }
+          }
+          this.setState(newState);
+          localStorage.setItem('cps',this.state.coops);
         }
       }
-      this.setState(newState);
-      localStorage.setItem('cps',this.state.coops);
     })
     .catch((error)=>{
         return(error);//reject(error);
@@ -171,7 +189,6 @@ class NavBar extends Component {
   }
 
   render(){
-    //let coopList = this.getCoopsList();
     return (
       <div className="navBarStyle2">
         <img className="navLogo2" src={require("./images/emata-logo.png")} alt={"logo"}/>

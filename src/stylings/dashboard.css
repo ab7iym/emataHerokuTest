@@ -1,3 +1,6 @@
+.parentDiv{
+  background-color: rgba(255,255,255,0.0);
+}
 .placeholder{
   color: #6c757d;
   opacity: 1;
@@ -9,7 +12,7 @@
 }
 .dashboardNavDiv {
   width: 100%;
-  margin: auto;
+  max-height: 20%;
   z-index: 100;
 }
 p.cardNames {
@@ -17,7 +20,7 @@ p.cardNames {
   background-color: rgba(255,255,255,0.0);
   width: 100%;
   height: calc(1rem + 2px);
-  margin-left: 38px;
+  margin-left: 54px;
   margin-top: 10px;
   font-size: 0.9rem;
   font-family: Arial;
@@ -28,21 +31,22 @@ p.cardNames {
 }
 div.titleCard {
   background-color: rgba(255,255,255,0);
-  border-radius: 80px;
-  width: 30%;
+  border-radius: 3px;
+  width: 100%;
   height: 30px;
   display: block;
-  margin-top: 20px;
+  margin-top: 15px;
 }
 p.title {
   display: block;
-  background-color: rgba(255,255,255,0);
+  background-color: rgba(255,255,255,0.0);
   width: 100%;
   height: calc(1rem + 2px);
   margin-top: 10px;
-  font-size: 1.2rem;
-  text-indent: 7%;
-  font-family: AvantGardeMdITCTT;
+  font-size: 0.9rem;
+  font-weight: bold;
+  text-indent: 0%;
+  font-family: arial;
   color: rgba(255,255,255,0.9);
   border: 0px solid #ced4da;
   border-radius: 0.9rem;
@@ -66,32 +70,32 @@ p.utilizationcardName {/*this is a specific class to align the name font to left
   width: 100%;
 }
 div.deliveryDetailsCard {
-  background-color: rgba(255,255,255,0.9);
-  border-radius: 8px;
+  background-color: rgba(255,255,255);
+  border-radius: 3px;
   width: 100%;
   height: 400px;
   display: block;
   padding-top: 1%;
 }
 div.monthlyOVCard {
-  background-color: rgba(255,255,255,0.9);
-  border-radius: 8px;
+  background-color: rgba(255,255,255);
+  border-radius: 3px;
   width: 100%;
   height: 400px;
   display: block;
   padding-top: 1%;
 }
 div.paymentCard {
-  background-color: rgba(255,255,255,0.9);
-  border-radius: 8px;
+  background-color: rgba(255,255,255);
+  border-radius: 3px;
   width: 100%;
   height: 300px;
   display: block;
   padding-top: 1%;
 }
 div.farmersCard {
-  background-color: rgba(255,255,255,0.9);
-  border-radius: 8px;
+  background-color: rgba(255,255,255);
+  border-radius: 3px;
   width: 100%;
   height: 300px;
   display: block;
@@ -99,8 +103,8 @@ div.farmersCard {
 }
 
 div.utilizationCard {
-  background-color: rgba(255,255,255,0.9);
-  border-radius: 8px;
+  background-color: rgba(255,255,255);
+  border-radius: 3px;
   width: 100%;
   height: 300px;
   display: block;
